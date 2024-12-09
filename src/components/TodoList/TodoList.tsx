@@ -13,6 +13,7 @@ type Props = {
   filteredTodos: Todo[];
   setErrorMessage: (message: string) => void;
   loadingIds: number[];
+  tempTodo: Todo | null;
 };
 
 export const Todolist: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const Todolist: React.FC<Props> = ({
   filteredTodos,
   setErrorMessage,
   loadingIds,
+  tempTodo,
 }) => {
   return (
     <section className="todoapp__main" data-cy="TodoList">
@@ -38,6 +40,18 @@ export const Todolist: React.FC<Props> = ({
           key={todo.id}
         />
       ))}
+      {tempTodo && (
+        <TodoItem
+          todo={tempTodo}
+          onDelete={onDelete}
+          onUpdate={onUpdate}
+          deletingId={deletingId}
+          filteredTodos={filteredTodos}
+          setErrorMessage={setErrorMessage}
+          loadingIds={loadingIds}
+          key={tempTodo.id}
+        />
+      )}
     </section>
   );
 };

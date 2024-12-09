@@ -8,7 +8,6 @@ import { Todo } from './types/Todo';
 import * as todoService from './api/todos';
 import { FilterOptions } from './types/FilterOptions';
 import { Todolist } from './components/TodoList';
-import { TodoItem } from './components/TodoItem';
 import classNames from 'classnames';
 
 export const App: React.FC = () => {
@@ -225,18 +224,9 @@ export const App: React.FC = () => {
             filteredTodos={filteredTodos}
             setErrorMessage={setErrorMessage}
             loadingIds={loadingIds}
+            tempTodo={tempTodo}
           />
-          {tempTodo && (
-            <TodoItem
-              todo={tempTodo}
-              onDelete={handleDelete}
-              onUpdate={handleUpdateTodo}
-              deletingId={deletingId}
-              filteredTodos={filteredTodos}
-              setErrorMessage={setErrorMessage}
-              loadingIds={loadingIds}
-            />
-          )}
+
           {todos.length !== 0 && (
             <footer className="todoapp__footer" data-cy="Footer">
               <span className="todo-count" data-cy="TodosCounter">
