@@ -44,7 +44,7 @@ export const App: React.FC = () => {
       });
   };
 
-  const handleUpdateTodo = (updatedTodo: Todo) => {
+  const handleUpdateTodo = (updatedTodo: Todo): Promise<void> => {
     setLoadingIds(prevState => [...prevState, updatedTodo.id]);
 
     return todoService
