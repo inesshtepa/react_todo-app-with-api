@@ -59,9 +59,8 @@ export const TodoItem: React.FC<Props> = ({
               setEditingTodoId(null);
               setOpen(false);
             })
-            .catch(error => {
+            .catch(() => {
               setErrorMessage('Unable to update a todo');
-              throw error;
             })
             .finally(() => {
               setLoading(false);
