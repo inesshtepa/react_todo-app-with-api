@@ -5,7 +5,6 @@ import { Todo } from '../../types/Todo';
 import { TodoItem } from '../TodoItem';
 
 type Props = {
-  todos: Todo[];
   onToggleTodo: (id: number) => void;
   onDelete: (todoId: number) => void;
   onUpdate: (todo: Todo) => Promise<void>;
@@ -17,7 +16,6 @@ type Props = {
 };
 
 export const Todolist: React.FC<Props> = ({
-  todos,
   onDelete,
   onUpdate,
   deletingId,
@@ -28,7 +26,7 @@ export const Todolist: React.FC<Props> = ({
 }) => {
   return (
     <section className="todoapp__main" data-cy="TodoList">
-      {todos.map(todo => (
+      {filteredTodos.map(todo => (
         <TodoItem
           todo={todo}
           onDelete={onDelete}

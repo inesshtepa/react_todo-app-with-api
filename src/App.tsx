@@ -203,7 +203,6 @@ export const App: React.FC = () => {
           </header>
 
           <Todolist
-            todos={filteredTodos}
             onToggleTodo={toggleTodoCompletion}
             onDelete={handleDelete}
             onUpdate={handleUpdateTodo}
