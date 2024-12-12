@@ -9,13 +9,12 @@ import * as todoService from './api/todos';
 import { FilterOptions } from './types/FilterOptions';
 import { Todolist } from './components/TodoList';
 import classNames from 'classnames';
+import { Footer } from './components/Footer';
 
 export const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [currentFilter, setCurrentFilter] = useState<FilterOptions>(
-    FilterOptions.All,
-  );
+  const [currentFilter, setCurrentFilter] = useState<string>('All');
   const [errorMessage, setErrorMessage] = useState('');
   const [newTodoTitle, setNewTodoTitle] = useState('');
   const [tempTodo, setTempTodo] = useState<Todo | null>(null);
@@ -113,8 +112,6 @@ export const App: React.FC = () => {
     }
   };
 
-  const activeTodos = todos.filter(todo => !todo.completed).length;
-
   const completedAllTodos = () => {
     const allCompleted = todos.every(todo => todo.completed);
 
@@ -171,16 +168,6 @@ export const App: React.FC = () => {
     return <UserWarning />;
   }
 
-  const handleClearCompleted = () => {
-    const completedTodoId = todos
-      .filter(todo => todo.completed)
-      .map(todo => todo.id);
-
-    completedTodoId.forEach(todo => {
-      handleDelete(todo);
-    });
-  };
-
   return (
     <>
       <div className="todoapp">
@@ -228,37 +215,13 @@ export const App: React.FC = () => {
           />
 
           {todos.length !== 0 && (
-            <footer className="todoapp__footer" data-cy="Footer">
-              <span className="todo-count" data-cy="TodosCounter">
-                {`${activeTodos} items left`}
-              </span>
-
-              <nav className="filter" data-cy="Filter">
-                {Object.values(FilterOptions).map(option => (
-                  <a
-                    key={option}
-                    href={`#/${option}`}
-                    className={classNames('filter__link', {
-                      selected: currentFilter === option,
-                    })}
-                    data-cy={`FilterLink${option}`}
-                    onClick={() => setCurrentFilter(option)}
-                  >
-                    {option}
-                  </a>
-                ))}
-              </nav>
-
-              <button
-                type="button"
-                className="todoapp__clear-completed"
-                data-cy="ClearCompletedButton"
-                onClick={() => handleClearCompleted()}
-                disabled={todos.every(todo => !todo.completed) || loading}
-              >
-                Clear completed
-              </button>
-            </footer>
+            <Footer
+              todos={todos}
+              onDelete={handleDelete}
+              currentFilter={currentFilter}
+              setCurrentFilter={setCurrentFilter}
+              loading={loading}
+            />
           )}
         </div>
 
